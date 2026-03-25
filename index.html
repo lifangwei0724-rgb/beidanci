@@ -21,8 +21,8 @@
             color: white;
             position: relative;
         }
-        .header h1 { font-size: 26px; margin-bottom: 6px; }
-        .header p { font-size: 14px; opacity: 0.9; }
+        .header h1 { font-size: 24px; margin-bottom: 5px; }
+        .header p { font-size: 13px; opacity: 0.9; }
         .header-back {
             position: absolute;
             left: 15px;
@@ -38,27 +38,63 @@
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 15px;
+            gap: 25px;
+            margin-top: 12px;
         }
         .stat-item { text-align: center; }
-        .stat-value { font-size: 22px; font-weight: bold; }
-        .stat-label { font-size: 12px; opacity: 0.9; }
+        .stat-value { font-size: 20px; font-weight: bold; }
+        .stat-label { font-size: 11px; opacity: 0.9; }
 
         .card {
             background: white;
-            margin: 12px 15px;
+            margin: 10px 12px;
             border-radius: 12px;
-            padding: 18px;
+            padding: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
+        /* 姓名设置 */
+        .name-bar {
+            background: white;
+            margin: 10px 12px;
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .name-bar input {
+            flex: 1;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            outline: none;
+        }
+        .name-bar input:focus { border-color: #07c160; }
+        .name-bar button {
+            padding: 8px 16px;
+            background: #07c160;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .name-display {
+            font-size: 14px;
+            color: #333;
+        }
+        .name-display span { color: #07c160; font-weight: 600; }
+
         /* 课程列表页 */
-        .lecture-list { padding: 5px 0; }
+        .lecture-list { padding: 3px 0; }
         .lecture-item {
             display: flex;
             align-items: center;
-            padding: 16px;
+            padding: 14px;
             border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
             transition: background 0.2s;
@@ -66,8 +102,8 @@
         .lecture-item:active { background: #f8f8f8; }
         .lecture-item:last-child { border-bottom: none; }
         .lecture-num {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: linear-gradient(135deg, #07c160 0%, #05a350 100%);
             color: white;
@@ -75,289 +111,349 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
             flex-shrink: 0;
         }
-        .lecture-num.empty {
-            background: #e0e0e0;
-            color: #999;
-        }
-        .lecture-num.completed {
-            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
-        }
-        .lecture-info {
-            flex: 1;
-            margin-left: 14px;
-        }
-        .lecture-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        .lecture-desc {
-            font-size: 13px;
-            color: #999;
-        }
-        .lecture-progress {
-            width: 50px;
-            text-align: right;
-        }
+        .lecture-num.empty { background: #e0e0e0; color: #999; }
+        .lecture-num.completed { background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); }
+        .lecture-info { flex: 1; margin-left: 12px; }
+        .lecture-title { font-size: 15px; font-weight: 500; color: #333; margin-bottom: 3px; }
+        .lecture-desc { font-size: 12px; color: #999; }
+        .lecture-progress { width: 48px; text-align: right; }
         .lecture-progress-bar {
-            width: 50px;
-            height: 4px;
-            background: #f0f0f0;
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 4px;
+            width: 48px; height: 4px;
+            background: #f0f0f0; border-radius: 2px;
+            overflow: hidden; margin-bottom: 3px;
         }
-        .lecture-progress-fill {
-            height: 100%;
-            background: #07c160;
-            border-radius: 2px;
-            transition: width 0.3s;
-        }
-        .lecture-progress-text {
-            font-size: 11px;
-            color: #999;
-        }
-        .lecture-arrow {
-            color: #ccc;
-            font-size: 18px;
-            margin-left: 8px;
-        }
+        .lecture-progress-fill { height: 100%; background: #07c160; border-radius: 2px; transition: width 0.3s; }
+        .lecture-progress-text { font-size: 11px; color: #999; }
+        .lecture-arrow { color: #ccc; font-size: 16px; margin-left: 6px; }
 
         /* 学习页 */
-        .word-card {
-            text-align: center;
-            padding: 25px 0;
-        }
-        .word-text {
-            font-size: 30px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .word-meaning {
-            font-size: 20px;
-            color: #07c160;
-            margin-bottom: 20px;
-            min-height: 30px;
-        }
+        .word-card { text-align: center; padding: 20px 0; }
+        .word-text { font-size: 28px; font-weight: bold; color: #333; margin-bottom: 8px; }
+        .word-meaning { font-size: 18px; color: #07c160; margin-bottom: 18px; min-height: 28px; }
         .word-meaning.hidden-meaning {
-            color: #ddd;
-            background: #f5f5f5;
-            padding: 8px 20px;
-            border-radius: 8px;
-            display: inline-block;
+            color: #ddd; background: #f5f5f5;
+            padding: 6px 18px; border-radius: 8px; display: inline-block;
         }
-        .word-counter {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 15px;
-        }
+        .word-counter { font-size: 12px; color: #999; margin-bottom: 12px; }
 
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
+        .btn-group { display: flex; gap: 10px; margin-top: 16px; }
         .btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
+            flex: 1; padding: 13px; border: none;
+            border-radius: 8px; font-size: 15px;
+            font-weight: 500; cursor: pointer;
         }
         .btn-primary { background: #07c160; color: white; }
         .btn-secondary { background: #f2f2f2; color: #666; }
         .btn-danger { background: #fa5151; color: white; }
-        .btn-full { width: 100%; margin-bottom: 10px; }
+        .btn-full { width: 100%; margin-bottom: 8px; }
+        .btn-outline {
+            background: white; color: #07c160;
+            border: 1px solid #07c160;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            color: white;
+        }
 
         .mode-tabs {
-            display: flex;
-            background: #f2f2f2;
-            border-radius: 8px;
-            padding: 3px;
-            margin-bottom: 18px;
+            display: flex; background: #f2f2f2;
+            border-radius: 8px; padding: 3px; margin-bottom: 16px;
         }
         .mode-tab {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            color: #666;
-            font-size: 14px;
-            border-radius: 6px;
-            cursor: pointer;
+            flex: 1; padding: 9px; border: none;
+            background: transparent; color: #666;
+            font-size: 13px; border-radius: 6px; cursor: pointer;
         }
-        .mode-tab.active {
-            background: white;
-            color: #07c160;
-            font-weight: 500;
-        }
+        .mode-tab.active { background: white; color: #07c160; font-weight: 500; }
 
         .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-            padding-left: 10px;
+            font-size: 15px; font-weight: 600; color: #333;
+            margin-bottom: 12px; padding-left: 10px;
             border-left: 3px solid #07c160;
         }
 
-        .word-list {
-            max-height: 350px;
-            overflow-y: auto;
-        }
+        .word-list { max-height: 320px; overflow-y: auto; }
         .word-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px;
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 12px;
             border-bottom: 1px solid #f0f0f0;
         }
         .word-item:last-child { border-bottom: none; }
-        .word-info h4 { font-size: 15px; color: #333; margin-bottom: 3px; }
-        .word-info p { font-size: 13px; color: #999; }
+        .word-info h4 { font-size: 14px; color: #333; margin-bottom: 2px; }
+        .word-info p { font-size: 12px; color: #999; }
         .word-status {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
+            width: 20px; height: 20px; border-radius: 50%;
+            display: flex; align-items: center;
+            justify-content: center; font-size: 12px;
         }
         .word-status.learned { background: #07c160; color: white; }
         .word-status.new { background: #f0f0f0; color: #999; }
 
         .test-option {
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            background: white;
-            font-size: 16px;
-            text-align: left;
-            cursor: pointer;
+            padding: 14px; margin-bottom: 8px;
+            border: 1px solid #e5e5e5; border-radius: 8px;
+            background: white; font-size: 15px;
+            text-align: left; cursor: pointer;
         }
         .test-option:active { background: #f8f8f8; }
         .test-option.correct { border-color: #07c160; background: #e8f8f0; }
         .test-option.wrong { border-color: #fa5151; background: #ffe8e8; }
 
         .result-score {
-            font-size: 60px;
-            font-weight: bold;
-            color: #07c160;
-            text-align: center;
-            margin: 20px 0;
+            font-size: 56px; font-weight: bold;
+            color: #07c160; text-align: center; margin: 18px 0;
         }
 
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; display: flex;
             border-top: 1px solid #e5e5e5;
             padding-bottom: env(safe-area-inset-bottom);
             z-index: 100;
         }
         .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px;
-            border: none;
-            background: white;
-            color: #999;
-            font-size: 11px;
-            cursor: pointer;
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; padding: 6px 4px;
+            border: none; background: white;
+            color: #999; font-size: 10px; cursor: pointer;
         }
         .nav-item.active { color: #07c160; }
-        .nav-icon { font-size: 22px; margin-bottom: 2px; }
+        .nav-icon { font-size: 20px; margin-bottom: 1px; }
 
         .hidden { display: none !important; }
 
         .toast {
-            position: fixed;
-            top: 50%;
-            left: 50%;
+            position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 14px;
-            z-index: 1000;
-            display: none;
+            background: rgba(0,0,0,0.8); color: white;
+            padding: 12px 24px; border-radius: 8px;
+            font-size: 14px; z-index: 1000; display: none;
+            max-width: 80%; text-align: center;
         }
         .toast.show { display: block; }
 
         .achievements {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
         }
         .achievement {
-            aspect-ratio: 1;
-            background: #f5f5f5;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            opacity: 0.3;
+            aspect-ratio: 1; background: #f5f5f5;
+            border-radius: 10px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            font-size: 24px; opacity: 0.3; position: relative;
+        }
+        .achievement .ach-name {
+            font-size: 9px; color: #666; margin-top: 2px;
         }
         .achievement.unlocked {
             opacity: 1;
             background: linear-gradient(135deg, #07c160 0%, #05a350 100%);
         }
+        .achievement.unlocked .ach-name { color: white; }
+        .achievement.teacher-reward {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        }
 
         .overall-progress {
-            background: white;
-            margin: 12px 15px;
-            border-radius: 12px;
-            padding: 16px 18px;
+            background: white; margin: 10px 12px;
+            border-radius: 12px; padding: 14px 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            display: flex; align-items: center; gap: 12px;
         }
         .overall-bar {
-            flex: 1;
-            height: 8px;
-            background: #f0f0f0;
-            border-radius: 4px;
-            overflow: hidden;
+            flex: 1; height: 6px; background: #f0f0f0;
+            border-radius: 3px; overflow: hidden;
         }
         .overall-fill {
             height: 100%;
             background: linear-gradient(90deg, #07c160, #05d66e);
-            border-radius: 4px;
-            transition: width 0.5s;
+            border-radius: 3px; transition: width 0.5s;
         }
-        .overall-text {
-            font-size: 13px;
-            color: #666;
-            white-space: nowrap;
-        }
+        .overall-text { font-size: 12px; color: #666; white-space: nowrap; }
 
         .reset-btn {
-            display: block;
-            margin: 15px auto;
-            padding: 10px 20px;
-            background: none;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            color: #999;
+            display: block; margin: 12px auto;
+            padding: 8px 18px; background: none;
+            border: 1px solid #ddd; border-radius: 8px;
+            color: #999; font-size: 12px; cursor: pointer;
+        }
+
+        /* 奖励码 */
+        .reward-input-group {
+            display: flex; gap: 8px; margin-top: 12px;
+        }
+        .reward-input-group input {
+            flex: 1; padding: 12px;
+            border: 1px solid #e5e5e5; border-radius: 8px;
+            font-size: 16px; text-transform: uppercase;
+            letter-spacing: 2px; text-align: center;
+            outline: none;
+        }
+        .reward-input-group input:focus { border-color: #07c160; }
+        .reward-input-group button {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            color: white; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: 500; cursor: pointer;
+            white-space: nowrap;
+        }
+        .reward-history {
+            margin-top: 12px; max-height: 150px; overflow-y: auto;
+        }
+        .reward-history-item {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
             font-size: 13px;
-            cursor: pointer;
+        }
+        .reward-history-item:last-child { border-bottom: none; }
+        .reward-code-tag {
+            background: #fff3e0; color: #ff9800;
+            padding: 2px 8px; border-radius: 4px;
+            font-weight: 500; font-size: 12px;
+        }
+        .reward-pts { color: #07c160; font-weight: 600; }
+
+        /* 学习报告 */
+        .report-card {
+            background: linear-gradient(135deg, #07c160 0%, #05a350 50%, #028a3d 100%);
+            border-radius: 16px;
+            padding: 24px 20px;
+            color: white;
+            margin: 10px 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .report-card::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 100px; height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .report-card::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; left: -20px;
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+        .report-name {
+            font-size: 22px; font-weight: bold; margin-bottom: 4px;
+        }
+        .report-date { font-size: 12px; opacity: 0.8; margin-bottom: 16px; }
+        .report-stats {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 10px; margin-bottom: 16px;
+        }
+        .report-stat {
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px; padding: 10px 6px;
+        }
+        .report-stat-val { font-size: 24px; font-weight: bold; }
+        .report-stat-label { font-size: 11px; opacity: 0.9; }
+        .report-lectures {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 12px;
+        }
+        .report-lec-tag {
+            padding: 3px 8px; border-radius: 10px;
+            font-size: 11px;
+        }
+        .report-lec-tag.done {
+            background: rgba(255,255,255,0.3); color: white;
+        }
+        .report-lec-tag.partial {
+            background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8);
+        }
+        .report-badges {
+            display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .report-badge {
+            width: 32px; height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            display: flex; align-items: center;
+            justify-content: center; font-size: 18px;
+        }
+        .report-footer {
+            text-align: center; margin-top: 14px;
+            font-size: 11px; opacity: 0.7;
+        }
+        .report-level {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .share-btns {
+            display: flex; gap: 8px; margin: 10px 12px;
+        }
+        .share-btns button {
+            flex: 1; padding: 12px; border: none;
+            border-radius: 8px; font-size: 14px;
+            cursor: pointer; font-weight: 500;
+        }
+
+        /* 排行榜 */
+        .rank-item {
+            display: flex; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+        }
+        .rank-item:last-child { border-bottom: none; }
+        .rank-pos {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: bold; flex-shrink: 0;
+            margin-right: 10px;
+        }
+        .rank-pos.gold { background: linear-gradient(135deg, #ffd700, #ffb300); color: white; }
+        .rank-pos.silver { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: white; }
+        .rank-pos.bronze { background: linear-gradient(135deg, #cd7f32, #b8690e); color: white; }
+        .rank-pos.normal { background: #f0f0f0; color: #666; }
+        .rank-info { flex: 1; }
+        .rank-name { font-size: 14px; font-weight: 500; color: #333; }
+        .rank-detail { font-size: 11px; color: #999; }
+        .rank-score { font-size: 16px; font-weight: bold; color: #07c160; }
+        .rank-me { background: #f0faf5; border-radius: 8px; margin: -2px -8px; padding: 12px 8px; }
+        .rank-tabs {
+            display: flex; background: #f2f2f2; border-radius: 8px;
+            padding: 3px; margin-bottom: 14px;
+        }
+        .rank-tab {
+            flex: 1; padding: 8px; border: none;
+            background: transparent; color: #666;
+            font-size: 13px; border-radius: 6px; cursor: pointer;
+        }
+        .rank-tab.active { background: white; color: #07c160; font-weight: 500; }
+
+        /* 弹窗 */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); z-index: 500;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white; border-radius: 16px;
+            padding: 24px 20px; max-width: 340px; width: 100%;
+            text-align: center;
+        }
+        .modal-icon { font-size: 48px; margin-bottom: 12px; }
+        .modal-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 8px; }
+        .modal-desc { font-size: 14px; color: #666; margin-bottom: 20px; }
+        .modal-btn {
+            width: 100%; padding: 12px; border: none;
+            border-radius: 8px; font-size: 16px;
+            cursor: pointer; font-weight: 500;
         }
     </style>
 </head>
@@ -373,17 +469,22 @@
             </div>
             <div class="stat-item">
                 <div class="stat-value" id="streak">0</div>
-                <div class="stat-label">连击</div>
+                <div class="stat-label">连续</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value" id="learned">0</div>
                 <div class="stat-label">已学</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="levelDisplay">Lv.1</div>
+                <div class="stat-label">等级</div>
             </div>
         </div>
     </div>
 
     <!-- 课程列表页 -->
     <div id="page-courses">
+        <div class="name-bar" id="nameBar"></div>
         <div class="overall-progress">
             <div class="overall-text" id="overallText">总进度 0%</div>
             <div class="overall-bar">
@@ -433,6 +534,58 @@
         </div>
     </div>
 
+    <!-- 奖励码页 -->
+    <div id="page-reward" class="hidden">
+        <div class="card">
+            <div class="section-title">输入奖励码</div>
+            <p style="font-size:13px;color:#999;margin-bottom:12px;">老师会根据你的学习表现发放奖励码，输入后即可获得积分和特殊徽章</p>
+            <div class="reward-input-group">
+                <input type="text" id="rewardInput" placeholder="输入奖励码" maxlength="20">
+                <button onclick="redeemCode()">兑换</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="section-title">兑换记录</div>
+            <div class="reward-history" id="rewardHistory">
+                <div style="text-align:center;color:#999;font-size:13px;padding:15px;">暂无兑换记录</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="section-title">老师专属徽章</div>
+            <div class="achievements" id="teacherBadges"></div>
+        </div>
+    </div>
+
+    <!-- 报告页 -->
+    <div id="page-report" class="hidden">
+        <div class="report-card" id="reportCard"></div>
+        <div class="share-btns">
+            <button style="background:#07c160;color:white;" onclick="copyReport()">复制成绩分享</button>
+            <button style="background:#f2f2f2;color:#666;" onclick="showPage('courses',document.getElementById('nav-courses'))">返回</button>
+        </div>
+        <div class="card">
+            <div class="section-title">各讲完成情况</div>
+            <div id="reportDetail"></div>
+        </div>
+    </div>
+
+    <!-- 排行榜页 -->
+    <div id="page-rank" class="hidden">
+        <div class="card">
+            <div class="section-title">班级排行榜</div>
+            <p style="font-size:12px;color:#999;margin-bottom:10px;">点击"同步成绩"将你的成绩加入排行榜</p>
+            <button class="btn btn-primary btn-full" onclick="syncToRank()" style="margin-bottom:12px;">同步我的成绩</button>
+            <div class="rank-tabs">
+                <button class="rank-tab active" onclick="switchRankTab('points', this)">积分榜</button>
+                <button class="rank-tab" onclick="switchRankTab('words', this)">单词榜</button>
+                <button class="rank-tab" onclick="switchRankTab('streak', this)">连续榜</button>
+            </div>
+            <div id="rankList">
+                <div style="text-align:center;color:#999;font-size:13px;padding:20px;">点击"同步成绩"开始排名</div>
+            </div>
+        </div>
+    </div>
+
     <!-- 统计页 -->
     <div id="page-stats" class="hidden">
         <div class="card">
@@ -451,9 +604,17 @@
             <span class="nav-icon">📋</span>
             <span>课程</span>
         </button>
-        <button class="nav-item" id="nav-test" onclick="showPage('test', this)">
-            <span class="nav-icon">📝</span>
-            <span>测试</span>
+        <button class="nav-item" id="nav-reward" onclick="showPage('reward', this)">
+            <span class="nav-icon">🎁</span>
+            <span>奖励</span>
+        </button>
+        <button class="nav-item" id="nav-rank" onclick="showPage('rank', this)">
+            <span class="nav-icon">🏆</span>
+            <span>排行</span>
+        </button>
+        <button class="nav-item" id="nav-report" onclick="showPage('report', this)">
+            <span class="nav-icon">📄</span>
+            <span>报告</span>
         </button>
         <button class="nav-item" id="nav-stats" onclick="showPage('stats', this)">
             <span class="nav-icon">📊</span>
@@ -462,13 +623,13 @@
     </div>
 
     <div id="toast" class="toast"></div>
+    <div id="modalContainer"></div>
 
     <script>
         // ==================== 18讲词汇数据 ====================
         const lectures = [
             {
-                id: 1,
-                title: "Camping Adventure",
+                id: 1, title: "Camping Adventure",
                 words: [
                     {word: "go camping", meaning: "去露营"},
                     {word: "put it up", meaning: "把……搭起来"},
@@ -493,49 +654,83 @@
                     {word: "buy sth. for sb.", meaning: "给某人买某物"}
                 ]
             },
-            { id: 2, title: "第2讲", words: [] },
-            { id: 3, title: "第3讲", words: [] },
-            { id: 4, title: "第4讲", words: [] },
-            { id: 5, title: "第5讲", words: [] },
-            { id: 6, title: "第6讲", words: [] },
-            { id: 7, title: "第7讲", words: [] },
-            { id: 8, title: "第8讲", words: [] },
-            { id: 9, title: "第9讲", words: [] },
-            { id: 10, title: "第10讲", words: [] },
-            { id: 11, title: "第11讲", words: [] },
-            { id: 12, title: "第12讲", words: [] },
-            { id: 13, title: "第13讲", words: [] },
-            { id: 14, title: "第14讲", words: [] },
-            { id: 15, title: "第15讲", words: [] },
-            { id: 16, title: "第16讲", words: [] },
-            { id: 17, title: "第17讲", words: [] },
-            { id: 18, title: "第18讲", words: [] }
+            {id:2,title:"第2讲",words:[]},{id:3,title:"第3讲",words:[]},
+            {id:4,title:"第4讲",words:[]},{id:5,title:"第5讲",words:[]},
+            {id:6,title:"第6讲",words:[]},{id:7,title:"第7讲",words:[]},
+            {id:8,title:"第8讲",words:[]},{id:9,title:"第9讲",words:[]},
+            {id:10,title:"第10讲",words:[]},{id:11,title:"第11讲",words:[]},
+            {id:12,title:"第12讲",words:[]},{id:13,title:"第13讲",words:[]},
+            {id:14,title:"第14讲",words:[]},{id:15,title:"第15讲",words:[]},
+            {id:16,title:"第16讲",words:[]},{id:17,title:"第17讲",words:[]},
+            {id:18,title:"第18讲",words:[]}
+        ];
+
+        // ==================== 奖励码配置 ====================
+        const rewardCodes = {
+            'STAR50':    {points: 50,  badge: null, desc: '老师奖励50积分'},
+            'GREAT100':  {points: 100, badge: null, desc: '老师奖励100积分'},
+            'SUPER200':  {points: 200, badge: null, desc: '老师奖励200积分'},
+            'BEST300':   {points: 300, badge: null, desc: '老师奖励300积分'},
+            'CHAMPION':  {points: 500, badge: 'champion', desc: '冠军奖励500积分+徽章'},
+            'EXCELLENT': {points: 200, badge: 'excellent', desc: '优秀学员200积分+徽章'},
+            'PROGRESS':  {points: 150, badge: 'progress', desc: '进步之星150积分+徽章'},
+            'HELPER':    {points: 100, badge: 'helper', desc: '小帮手100积分+徽章'},
+            'PERFECT':   {points: 300, badge: 'perfectstar', desc: '完美表现300积分+徽章'},
+            'EFFORT':    {points: 100, badge: 'effort', desc: '努力奖100积分+徽章'}
+        };
+
+        const teacherBadges = [
+            {id: 'champion', icon: '🏅', name: '冠军'},
+            {id: 'excellent', icon: '🌟', name: '优秀学员'},
+            {id: 'progress', icon: '📈', name: '进步之星'},
+            {id: 'helper', icon: '🤝', name: '小帮手'},
+            {id: 'perfectstar', icon: '💎', name: '完美表现'},
+            {id: 'effort', icon: '💪', name: '努力奖'}
+        ];
+
+        // ==================== 等级系统 ====================
+        const levels = [
+            {lv: 1, name: '入门学徒', min: 0},
+            {lv: 2, name: '初级学者', min: 100},
+            {lv: 3, name: '中级达人', min: 300},
+            {lv: 4, name: '高级能手', min: 600},
+            {lv: 5, name: '词汇大师', min: 1000},
+            {lv: 6, name: '学霸', min: 1500},
+            {lv: 7, name: '超级学霸', min: 2500},
+            {lv: 8, name: '传奇学神', min: 4000}
         ];
 
         // ==================== 全局状态 ====================
-        let allWords = {};       // lectureId -> [{word, meaning, learned, level, nextReview, id}]
+        let allWords = {};
         let currentLecture = null;
-        let words = [];          // 当前讲的单词
+        let words = [];
         let currentMode = 'new';
         let currentIndex = 0;
         let currentTest = null;
+        let currentRankTab = 'points';
 
         let userData = {
+            name: '',
             points: 0,
             streak: 0,
             lastStudyDate: null,
-            achievements: []
+            achievements: [],
+            teacherBadges: [],
+            redeemedCodes: [],
+            rewardHistory: []
         };
+
+        let rankData = [];
 
         const achievementList = [
             {id: 'first', icon: '🌱', name: '初学者'},
-            {id: 'ten', icon: '📚', name: '积累10个'},
-            {id: 'fifty', icon: '🏆', name: '积累50个'},
-            {id: 'hundred', icon: '👑', name: '积累100个'},
+            {id: 'ten', icon: '📚', name: '学10个'},
+            {id: 'fifty', icon: '🏆', name: '学50个'},
+            {id: 'hundred', icon: '👑', name: '学100个'},
             {id: 'streak3', icon: '🔥', name: '3天连击'},
             {id: 'streak7', icon: '🗓️', name: '7天连击'},
             {id: 'perfect', icon: '💯', name: '满分'},
-            {id: 'allclear', icon: '⭐', name: '全部掌握'}
+            {id: 'allclear', icon: '⭐', name: '全掌握'}
         ];
 
         // ==================== 初始化 ====================
@@ -543,70 +738,117 @@
             loadData();
             checkStreak();
             updateStats();
+            renderNameBar();
             renderLectureList();
             renderAchievements();
+            loadRankData();
         }
 
         function loadData() {
-            // 加载每讲的单词数据
-            const saved = localStorage.getItem('bdc_allWords_v2');
+            const saved = localStorage.getItem('bdc_allWords_v3');
             if (saved) {
                 allWords = JSON.parse(saved);
             } else {
-                allWords = {};
-                lectures.forEach(lec => {
-                    if (lec.words.length > 0) {
-                        allWords[lec.id] = lec.words.map((w, i) => ({
-                            id: lec.id * 1000 + i,
-                            word: w.word,
-                            meaning: w.meaning,
-                            learned: false,
-                            level: 0,
-                            nextReview: null
-                        }));
-                    }
-                });
+                // 尝试从v2迁移
+                const v2 = localStorage.getItem('bdc_allWords_v2');
+                if (v2) {
+                    allWords = JSON.parse(v2);
+                } else {
+                    allWords = {};
+                    lectures.forEach(lec => {
+                        if (lec.words.length > 0) {
+                            allWords[lec.id] = lec.words.map((w, i) => ({
+                                id: lec.id * 1000 + i, word: w.word,
+                                meaning: w.meaning, learned: false,
+                                level: 0, nextReview: null
+                            }));
+                        }
+                    });
+                }
                 saveWords();
             }
-            // 加载用户数据
-            const savedUser = localStorage.getItem('bdc_userData_v2');
-            if (savedUser) userData = JSON.parse(savedUser);
+            const savedUser = localStorage.getItem('bdc_userData_v3');
+            if (savedUser) {
+                const loaded = JSON.parse(savedUser);
+                userData = Object.assign(userData, loaded);
+            } else {
+                const v2u = localStorage.getItem('bdc_userData_v2');
+                if (v2u) {
+                    const loaded = JSON.parse(v2u);
+                    userData = Object.assign(userData, loaded);
+                    if (!userData.teacherBadges) userData.teacherBadges = [];
+                    if (!userData.redeemedCodes) userData.redeemedCodes = [];
+                    if (!userData.rewardHistory) userData.rewardHistory = [];
+                    if (!userData.name) userData.name = '';
+                }
+                saveUserData();
+            }
         }
 
-        function saveWords() {
-            localStorage.setItem('bdc_allWords_v2', JSON.stringify(allWords));
+        function saveWords() { localStorage.setItem('bdc_allWords_v3', JSON.stringify(allWords)); }
+        function saveUserData() { localStorage.setItem('bdc_userData_v3', JSON.stringify(userData)); }
+        function saveAll() { saveWords(); saveUserData(); }
+
+        // ==================== 姓名 ====================
+        function renderNameBar() {
+            const bar = document.getElementById('nameBar');
+            if (userData.name) {
+                bar.innerHTML = `<div class="name-display">同学：<span>${userData.name}</span></div>
+                    <button onclick="changeName()" style="padding:6px 12px;background:#f2f2f2;color:#666;border:none;border-radius:6px;font-size:12px;cursor:pointer;">修改</button>`;
+            } else {
+                bar.innerHTML = `<span style="font-size:13px;color:#999;white-space:nowrap;">设置姓名：</span>
+                    <input type="text" id="nameInput" placeholder="输入你的姓名" maxlength="10">
+                    <button onclick="saveName()">确定</button>`;
+            }
         }
 
-        function saveUserData() {
-            localStorage.setItem('bdc_userData_v2', JSON.stringify(userData));
-        }
-
-        function saveAll() {
-            saveWords();
+        function saveName() {
+            const input = document.getElementById('nameInput');
+            const name = input ? input.value.trim() : '';
+            if (!name) { showToast('请输入姓名'); return; }
+            userData.name = name;
             saveUserData();
+            renderNameBar();
+            showToast('欢迎你，' + name + '！');
         }
 
-        // ==================== 连击检查 ====================
+        function changeName() {
+            const name = prompt('修改姓名：', userData.name);
+            if (name && name.trim()) {
+                userData.name = name.trim();
+                saveUserData();
+                renderNameBar();
+            }
+        }
+
+        // ==================== 连击 ====================
         function checkStreak() {
-            const today = new Date().toDateString();
             if (userData.lastStudyDate) {
                 const last = new Date(userData.lastStudyDate);
-                const diff = Math.floor((new Date() - last) / (1000 * 60 * 60 * 24));
+                const diff = Math.floor((new Date() - last) / 86400000);
                 if (diff > 1) userData.streak = 0;
             }
             saveUserData();
         }
 
-        // ==================== 统计更新 ====================
+        // ==================== 等级计算 ====================
+        function getLevel() {
+            let lv = levels[0];
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (userData.points >= levels[i].min) { lv = levels[i]; break; }
+            }
+            return lv;
+        }
+
+        // ==================== 统计 ====================
         function updateStats() {
             document.getElementById('points').textContent = userData.points;
             document.getElementById('streak').textContent = userData.streak;
-            // 计算所有讲已学单词总数
             let totalLearned = 0;
-            Object.values(allWords).forEach(ws => {
-                totalLearned += ws.filter(w => w.learned).length;
-            });
+            Object.values(allWords).forEach(ws => { totalLearned += ws.filter(w => w.learned).length; });
             document.getElementById('learned').textContent = totalLearned;
+            const lv = getLevel();
+            document.getElementById('levelDisplay').textContent = 'Lv.' + lv.lv;
         }
 
         // ==================== 页面导航 ====================
@@ -622,103 +864,87 @@
                 document.getElementById('backBtn').style.display = 'none';
                 renderLectureList();
             } else if (page === 'test') {
-                if (currentLecture) {
-                    document.getElementById('page-test').classList.remove('hidden');
-                } else {
-                    showToast('请先选择一讲课程');
-                    document.getElementById('page-courses').classList.remove('hidden');
-                    document.getElementById('nav-courses').classList.add('active');
-                    return;
-                }
+                if (!currentLecture) { showToast('请先选择一讲课程'); showPage('courses', document.getElementById('nav-courses')); return; }
+                document.getElementById('page-test').classList.remove('hidden');
+            } else if (page === 'reward') {
+                document.getElementById('page-reward').classList.remove('hidden');
+                document.getElementById('headerTitle').textContent = '老师奖励';
+                document.getElementById('headerDesc').textContent = '输入老师发放的奖励码';
+                document.getElementById('backBtn').style.display = 'none';
+                renderRewardHistory();
+                renderTeacherBadges();
+            } else if (page === 'report') {
+                document.getElementById('page-report').classList.remove('hidden');
+                document.getElementById('headerTitle').textContent = '学习报告';
+                document.getElementById('headerDesc').textContent = '截图分享给老师';
+                document.getElementById('backBtn').style.display = 'none';
+                renderReport();
+            } else if (page === 'rank') {
+                document.getElementById('page-rank').classList.remove('hidden');
+                document.getElementById('headerTitle').textContent = '排行榜';
+                document.getElementById('headerDesc').textContent = '和同学比一比';
+                document.getElementById('backBtn').style.display = 'none';
+                renderRankList();
             } else if (page === 'stats') {
                 document.getElementById('page-stats').classList.remove('hidden');
+                document.getElementById('headerTitle').textContent = '统计';
+                document.getElementById('headerDesc').textContent = '学习数据总览';
+                document.getElementById('backBtn').style.display = 'none';
                 renderAchievements();
                 renderAllWordList();
             }
-
             if (navEl) navEl.classList.add('active');
         }
 
         function enterLecture(lecId) {
             const lec = lectures.find(l => l.id === lecId);
             if (!lec) return;
-
-            if (!allWords[lecId] || allWords[lecId].length === 0) {
-                showToast('该讲还没有词汇，等待添加');
-                return;
-            }
-
+            if (!allWords[lecId] || allWords[lecId].length === 0) { showToast('该讲还没有词汇，等待添加'); return; }
             currentLecture = lec;
             words = allWords[lecId];
-            currentIndex = 0;
-            currentMode = 'new';
-
-            // 更新界面
+            currentIndex = 0; currentMode = 'new';
             document.getElementById('headerTitle').textContent = '第' + lecId + '讲';
             document.getElementById('headerDesc').textContent = lec.title;
             document.getElementById('backBtn').style.display = 'block';
-
             document.querySelectorAll('[id^="page-"]').forEach(p => p.classList.add('hidden'));
             document.getElementById('page-learn').classList.remove('hidden');
-
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
             document.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.mode-tab')[0].classList.add('active');
-
-            // 重置测试
             document.getElementById('test-start').classList.remove('hidden');
             document.getElementById('test-content').classList.add('hidden');
-
             initLearn();
             renderLectureWordList();
         }
 
-        function goBackToLectures() {
-            showPage('courses', document.getElementById('nav-courses'));
-        }
+        function goBackToLectures() { showPage('courses', document.getElementById('nav-courses')); }
 
-        // ==================== 课程列表渲染 ====================
+        // ==================== 课程列表 ====================
         function renderLectureList() {
             const list = document.getElementById('lectureList');
-            let html = '';
-            let totalWords = 0;
-            let totalLearned = 0;
-
+            let html = '', totalWords = 0, totalLearned = 0;
             lectures.forEach(lec => {
                 const ws = allWords[lec.id] || [];
                 const count = ws.length;
-                const learnedCount = ws.filter(w => w.learned).length;
-                totalWords += count;
-                totalLearned += learnedCount;
-                const pct = count > 0 ? Math.round(learnedCount / count * 100) : 0;
+                const lc = ws.filter(w => w.learned).length;
+                totalWords += count; totalLearned += lc;
+                const pct = count > 0 ? Math.round(lc / count * 100) : 0;
                 const isEmpty = count === 0;
-                const isCompleted = count > 0 && learnedCount === count;
-
-                html += `
-                    <div class="lecture-item" onclick="enterLecture(${lec.id})">
-                        <div class="lecture-num ${isEmpty ? 'empty' : (isCompleted ? 'completed' : '')}">${lec.id}</div>
-                        <div class="lecture-info">
-                            <div class="lecture-title">${lec.title}</div>
-                            <div class="lecture-desc">${isEmpty ? '暂无词汇' : count + '个词组 · 已学' + learnedCount + '个'}</div>
-                        </div>
-                        ${!isEmpty ? `
-                        <div class="lecture-progress">
-                            <div class="lecture-progress-bar">
-                                <div class="lecture-progress-fill" style="width:${pct}%"></div>
-                            </div>
-                            <div class="lecture-progress-text">${pct}%</div>
-                        </div>` : ''}
-                        <div class="lecture-arrow">&rsaquo;</div>
+                const isDone = count > 0 && lc === count;
+                html += `<div class="lecture-item" onclick="enterLecture(${lec.id})">
+                    <div class="lecture-num ${isEmpty ? 'empty' : (isDone ? 'completed' : '')}">${lec.id}</div>
+                    <div class="lecture-info">
+                        <div class="lecture-title">${lec.title}</div>
+                        <div class="lecture-desc">${isEmpty ? '暂无词汇' : count + '个词组 · 已学' + lc + '个'}</div>
                     </div>
-                `;
+                    ${!isEmpty ? `<div class="lecture-progress"><div class="lecture-progress-bar"><div class="lecture-progress-fill" style="width:${pct}%"></div></div><div class="lecture-progress-text">${pct}%</div></div>` : ''}
+                    <div class="lecture-arrow">&rsaquo;</div>
+                </div>`;
             });
             list.innerHTML = html;
-
-            // 总进度
-            const overallPct = totalWords > 0 ? Math.round(totalLearned / totalWords * 100) : 0;
-            document.getElementById('overallText').textContent = '总进度 ' + overallPct + '%（' + totalLearned + '/' + totalWords + '）';
-            document.getElementById('overallFill').style.width = overallPct + '%';
+            const op = totalWords > 0 ? Math.round(totalLearned / totalWords * 100) : 0;
+            document.getElementById('overallText').textContent = '总进度 ' + op + '%（' + totalLearned + '/' + totalWords + '）';
+            document.getElementById('overallFill').style.width = op + '%';
         }
 
         // ==================== 学习功能 ====================
@@ -726,28 +952,22 @@
             currentMode = mode;
             document.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-            currentIndex = 0;
-            initLearn();
+            currentIndex = 0; initLearn();
         }
 
         function initLearn() {
             if (!currentLecture || !words) return;
-
-            const list = currentMode === 'new'
-                ? words.filter(w => !w.learned)
-                : words.filter(w => w.nextReview && w.nextReview <= Date.now());
-
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
             if (list.length === 0) {
                 document.getElementById('wordCounter').textContent = '';
                 document.getElementById('wordText').textContent = currentMode === 'new' ? '本讲完成' : '暂无复习';
-                document.getElementById('wordMeaning').textContent = currentMode === 'new' ? '所有单词已学习' : '当前没有需要复习的词';
+                document.getElementById('wordMeaning').textContent = currentMode === 'new' ? '所有单词已学习！' : '当前没有需要复习的词';
                 document.getElementById('wordMeaning').classList.remove('hidden-meaning');
                 document.getElementById('showBtn').classList.add('hidden');
                 document.getElementById('knowBtn').classList.add('hidden');
                 document.getElementById('unknowBtn').classList.add('hidden');
                 return;
             }
-
             const idx = currentIndex % list.length;
             const word = list[idx];
             document.getElementById('wordCounter').textContent = (idx + 1) + ' / ' + list.length;
@@ -760,9 +980,7 @@
         }
 
         function showMeaning() {
-            const list = currentMode === 'new'
-                ? words.filter(w => !w.learned)
-                : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
             if (list.length === 0) return;
             const word = list[currentIndex % list.length];
             document.getElementById('wordMeaning').textContent = word.meaning;
@@ -773,168 +991,117 @@
         }
 
         function markKnown() {
-            const list = currentMode === 'new'
-                ? words.filter(w => !w.learned)
-                : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
             if (list.length === 0) return;
             const word = list[currentIndex % list.length];
             const today = new Date().toDateString();
-
             if (currentMode === 'new') {
-                word.learned = true;
-                word.level = 1;
+                word.learned = true; word.level = 1;
                 word.nextReview = Date.now() + 5 * 60 * 1000;
                 addPoints(10, '学会新单词');
                 if (userData.lastStudyDate !== today) {
-                    userData.streak++;
-                    userData.lastStudyDate = today;
-                    showToast('🔥 ' + userData.streak + '天连击！');
+                    userData.streak++; userData.lastStudyDate = today;
+                    showToast(userData.streak + '天连击！');
                 }
                 checkLearningAchievements();
             } else {
                 word.level = Math.min(word.level + 1, 7);
-                const intervals = [5, 30, 720, 1440, 2880, 5760, 10080, 21600];
-                word.nextReview = Date.now() + intervals[word.level] * 60 * 1000;
+                const iv = [5,30,720,1440,2880,5760,10080,21600];
+                word.nextReview = Date.now() + iv[word.level] * 60 * 1000;
                 addPoints(5, '复习成功');
             }
-            saveAll();
-            updateStats();
-            currentIndex++;
-            initLearn();
-            renderLectureWordList();
+            saveAll(); updateStats(); currentIndex++;
+            initLearn(); renderLectureWordList();
         }
 
         function markUnknown() {
-            const list = currentMode === 'new'
-                ? words.filter(w => !w.learned)
-                : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
             if (list.length === 0) return;
             const word = list[currentIndex % list.length];
             word.level = Math.max(word.level - 1, 0);
             word.nextReview = Date.now() + 5 * 60 * 1000;
-            saveAll();
-            showToast('加油，会再复习的');
-            currentIndex++;
-            initLearn();
+            saveAll(); showToast('加油，会再复习的');
+            currentIndex++; initLearn();
         }
 
         function checkLearningAchievements() {
             let total = 0;
-            Object.values(allWords).forEach(ws => {
-                total += ws.filter(w => w.learned).length;
-            });
+            Object.values(allWords).forEach(ws => { total += ws.filter(w => w.learned).length; });
             if (total >= 1) unlockAchievement('first');
             if (total >= 10) unlockAchievement('ten');
             if (total >= 50) unlockAchievement('fifty');
             if (total >= 100) unlockAchievement('hundred');
             if (userData.streak >= 3) unlockAchievement('streak3');
             if (userData.streak >= 7) unlockAchievement('streak7');
-
-            // 检查当前讲是否全部掌握
-            if (currentLecture && words.length > 0 && words.every(w => w.learned)) {
-                unlockAchievement('allclear');
-            }
+            if (currentLecture && words.length > 0 && words.every(w => w.learned)) unlockAchievement('allclear');
         }
 
-        // ==================== 本讲单词列表 ====================
         function renderLectureWordList() {
             if (!words) return;
-            document.getElementById('lectureWordList').innerHTML = words.map(w => `
-                <div class="word-item">
-                    <div class="word-info">
-                        <h4>${w.word}</h4>
-                        <p>${w.meaning}</p>
-                    </div>
-                    <div class="word-status ${w.learned ? 'learned' : 'new'}">${w.learned ? '✓' : ''}</div>
-                </div>
-            `).join('');
+            document.getElementById('lectureWordList').innerHTML = words.map(w =>
+                `<div class="word-item"><div class="word-info"><h4>${w.word}</h4><p>${w.meaning}</p></div><div class="word-status ${w.learned ? 'learned' : 'new'}">${w.learned ? '✓' : ''}</div></div>`
+            ).join('');
         }
 
-        // ==================== 测试功能 ====================
+        // ==================== 测试 ====================
         function startTest(type) {
-            if (!currentLecture) {
-                showToast('请先选择一讲课程');
-                return;
-            }
+            if (!currentLecture) { showToast('请先选择一讲课程'); return; }
             const learned = words.filter(w => w.learned);
-            if (learned.length < (type === 'choice' || type === 'chinese' ? 4 : 1)) {
-                showToast('先学习一些单词吧！');
-                return;
-            }
-            currentTest = {
-                type: type,
-                index: 0,
-                words: learned.sort(() => Math.random() - 0.5).slice(0, Math.min(10, learned.length)),
-                correct: 0,
-                wrong: 0
-            };
+            if (learned.length < (type === 'spell' ? 1 : 4)) { showToast('先学习一些单词吧！'); return; }
+            currentTest = { type, index: 0, words: learned.sort(() => Math.random() - 0.5).slice(0, Math.min(10, learned.length)), correct: 0, wrong: 0 };
             document.getElementById('test-start').classList.add('hidden');
             document.getElementById('test-content').classList.remove('hidden');
             renderTest();
         }
 
         function renderTest() {
-            const test = currentTest;
-            if (test.index >= test.words.length) {
-                const score = Math.round(test.correct / test.words.length * 100);
+            const t = currentTest;
+            if (t.index >= t.words.length) {
+                const score = Math.round(t.correct / t.words.length * 100);
                 if (score === 100) unlockAchievement('perfect');
                 document.getElementById('test-content').innerHTML = `
                     <div class="result-score">${score}</div>
-                    <div style="text-align:center;margin-bottom:20px;">
-                        <span style="color:#07c160;">✓ ${test.correct}</span> /
-                        <span style="color:#fa5151;">✗ ${test.wrong}</span>
-                    </div>
-                    <button class="btn btn-primary btn-full" onclick="resetTest()">再测一次</button>
-                `;
+                    <div style="text-align:center;margin-bottom:16px;"><span style="color:#07c160;">✓ ${t.correct}</span> / <span style="color:#fa5151;">✗ ${t.wrong}</span></div>
+                    <button class="btn btn-primary btn-full" onclick="resetTest()">再测一次</button>`;
                 addPoints(Math.floor(score / 10), '测试完成');
                 return;
             }
-            const word = test.words[test.index];
-            if (test.type === 'spell') {
+            const w = t.words[t.index];
+            if (t.type === 'spell') {
                 document.getElementById('test-content').innerHTML = `
-                    <div style="text-align:center;color:#999;font-size:13px;margin-bottom:8px;">第 ${test.index+1} / ${test.words.length} 题</div>
-                    <div style="font-size:22px;text-align:center;margin-bottom:20px;font-weight:500;">${word.meaning}</div>
-                    <input type="text" id="spellInput" style="width:100%;padding:14px;font-size:18px;border:1px solid #ddd;border-radius:8px;margin-bottom:12px;" placeholder="输入单词或词组">
-                    <button class="btn btn-primary btn-full" onclick="checkSpell('${word.word.replace(/'/g, "\\'")}')">提交</button>
-                `;
-                setTimeout(() => document.getElementById('spellInput').focus(), 100);
+                    <div style="text-align:center;color:#999;font-size:12px;margin-bottom:6px;">第${t.index+1}/${t.words.length}题</div>
+                    <div style="font-size:20px;text-align:center;margin-bottom:18px;font-weight:500;">${w.meaning}</div>
+                    <input type="text" id="spellInput" style="width:100%;padding:12px;font-size:16px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;" placeholder="输入单词或词组">
+                    <button class="btn btn-primary btn-full" onclick="checkSpell('${w.word.replace(/'/g,"\\'")}')">提交</button>`;
+                setTimeout(() => { const si = document.getElementById('spellInput'); if(si) si.focus(); }, 100);
             } else {
-                const options = getOptions(word, test.type);
+                const opts = getOptions(w, t.type);
                 document.getElementById('test-content').innerHTML = `
-                    <div style="text-align:center;color:#999;font-size:13px;margin-bottom:8px;">第 ${test.index+1} / ${test.words.length} 题</div>
-                    <div style="font-size:22px;text-align:center;margin-bottom:20px;font-weight:500;">${test.type === 'choice' ? word.word : word.meaning}</div>
-                    ${options.map(opt => `
-                        <div class="test-option" onclick="checkAnswer(this, '${opt.replace(/'/g, "\\'")}', '${(test.type === 'choice' ? word.meaning : word.word).replace(/'/g, "\\'")}')">${opt}</div>
-                    `).join('')}
-                `;
+                    <div style="text-align:center;color:#999;font-size:12px;margin-bottom:6px;">第${t.index+1}/${t.words.length}题</div>
+                    <div style="font-size:20px;text-align:center;margin-bottom:18px;font-weight:500;">${t.type === 'choice' ? w.word : w.meaning}</div>
+                    ${opts.map(o => `<div class="test-option" onclick="checkAnswer(this,'${o.replace(/'/g,"\\'")}','${(t.type==='choice'?w.meaning:w.word).replace(/'/g,"\\'")}')">${o}</div>`).join('')}`;
             }
         }
 
-        function getOptions(correctWord, type) {
-            const correct = type === 'choice' ? correctWord.meaning : correctWord.word;
-            const pool = words.filter(w => w.id !== correctWord.id);
-            const options = [correct];
-            while (options.length < 4 && pool.length > 0) {
-                const idx = Math.floor(Math.random() * pool.length);
-                const val = type === 'choice' ? pool[idx].meaning : pool[idx].word;
-                if (!options.includes(val)) options.push(val);
-                pool.splice(idx, 1);
+        function getOptions(cw, type) {
+            const correct = type === 'choice' ? cw.meaning : cw.word;
+            const pool = words.filter(w => w.id !== cw.id);
+            const opts = [correct];
+            while (opts.length < 4 && pool.length > 0) {
+                const i = Math.floor(Math.random() * pool.length);
+                const v = type === 'choice' ? pool[i].meaning : pool[i].word;
+                if (!opts.includes(v)) opts.push(v);
+                pool.splice(i, 1);
             }
-            return options.sort(() => Math.random() - 0.5);
+            return opts.sort(() => Math.random() - 0.5);
         }
 
         function checkSpell(correct) {
             const input = document.getElementById('spellInput');
-            const value = input ? input.value.trim().toLowerCase() : '';
-            if (value === correct.toLowerCase()) {
-                currentTest.correct++;
-                addPoints(5, '拼写正确');
-            } else {
-                currentTest.wrong++;
-                showToast('正确答案: ' + correct);
-            }
-            currentTest.index++;
-            renderTest();
+            const val = input ? input.value.trim().toLowerCase() : '';
+            if (val === correct.toLowerCase()) { currentTest.correct++; addPoints(5, '拼写正确'); }
+            else { currentTest.wrong++; showToast('正确: ' + correct); }
+            currentTest.index++; renderTest();
         }
 
         function checkAnswer(el, selected, correct) {
@@ -942,14 +1109,8 @@
                 b.style.pointerEvents = 'none';
                 if (b.textContent === correct) b.classList.add('correct');
             });
-            if (selected === correct) {
-                currentTest.correct++;
-                el.classList.add('correct');
-                addPoints(5, '正确');
-            } else {
-                currentTest.wrong++;
-                el.classList.add('wrong');
-            }
+            if (selected === correct) { currentTest.correct++; el.classList.add('correct'); addPoints(5, '正确'); }
+            else { currentTest.wrong++; el.classList.add('wrong'); }
             setTimeout(() => { currentTest.index++; renderTest(); }, 600);
         }
 
@@ -958,10 +1119,222 @@
             document.getElementById('test-content').classList.add('hidden');
         }
 
+        // ==================== 奖励码系统 ====================
+        function redeemCode() {
+            const input = document.getElementById('rewardInput');
+            const code = input ? input.value.trim().toUpperCase() : '';
+            if (!code) { showToast('请输入奖励码'); return; }
+            if (!userData.name) { showToast('请先在课程页设置姓名'); return; }
+            if (userData.redeemedCodes.includes(code)) { showToast('该奖励码已经使用过了'); return; }
+            const reward = rewardCodes[code];
+            if (!reward) { showToast('无效的奖励码'); return; }
+
+            userData.redeemedCodes.push(code);
+            userData.points += reward.points;
+            if (reward.badge && !userData.teacherBadges.includes(reward.badge)) {
+                userData.teacherBadges.push(reward.badge);
+            }
+            userData.rewardHistory.push({
+                code: code,
+                desc: reward.desc,
+                points: reward.points,
+                badge: reward.badge,
+                time: new Date().toLocaleDateString()
+            });
+            saveUserData(); updateStats();
+            input.value = '';
+
+            // 弹窗庆祝
+            showRewardModal(reward);
+            renderRewardHistory();
+            renderTeacherBadges();
+        }
+
+        function showRewardModal(reward) {
+            const badge = reward.badge ? teacherBadges.find(b => b.id === reward.badge) : null;
+            document.getElementById('modalContainer').innerHTML = `
+                <div class="modal-overlay" onclick="closeModal()">
+                    <div class="modal-content" onclick="event.stopPropagation()">
+                        <div class="modal-icon">${badge ? badge.icon : '🎉'}</div>
+                        <div class="modal-title">恭喜获得奖励！</div>
+                        <div class="modal-desc">${reward.desc}${badge ? '<br>解锁徽章：' + badge.name : ''}</div>
+                        <div style="font-size:32px;color:#ff9800;font-weight:bold;margin-bottom:16px;">+${reward.points}</div>
+                        <button class="modal-btn btn-primary" onclick="closeModal()">太棒了！</button>
+                    </div>
+                </div>`;
+        }
+
+        function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
+
+        function renderRewardHistory() {
+            const hist = userData.rewardHistory || [];
+            if (hist.length === 0) {
+                document.getElementById('rewardHistory').innerHTML = '<div style="text-align:center;color:#999;font-size:13px;padding:15px;">暂无兑换记录</div>';
+                return;
+            }
+            document.getElementById('rewardHistory').innerHTML = hist.slice().reverse().map(h =>
+                `<div class="reward-history-item">
+                    <div><span class="reward-code-tag">${h.code}</span> <span style="color:#666;margin-left:6px;">${h.desc}</span></div>
+                    <div><span class="reward-pts">+${h.points}</span><span style="color:#ccc;margin-left:6px;font-size:11px;">${h.time}</span></div>
+                </div>`
+            ).join('');
+        }
+
+        function renderTeacherBadges() {
+            document.getElementById('teacherBadges').innerHTML = teacherBadges.map(b =>
+                `<div class="achievement ${userData.teacherBadges.includes(b.id) ? 'unlocked teacher-reward' : ''}" title="${b.name}">
+                    ${b.icon}<span class="ach-name">${b.name}</span>
+                </div>`
+            ).join('');
+        }
+
+        // ==================== 学习报告 ====================
+        function renderReport() {
+            const name = userData.name || '未设置姓名';
+            const lv = getLevel();
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日';
+            let totalWords = 0, totalLearned = 0;
+            Object.values(allWords).forEach(ws => { totalWords += ws.length; totalLearned += ws.filter(w => w.learned).length; });
+
+            // 各讲进度
+            let lecTags = '', detailHtml = '';
+            lectures.forEach(lec => {
+                const ws = allWords[lec.id] || [];
+                if (ws.length === 0) return;
+                const lc = ws.filter(w => w.learned).length;
+                const pct = Math.round(lc / ws.length * 100);
+                const done = lc === ws.length;
+                lecTags += `<span class="report-lec-tag ${done ? 'done' : 'partial'}">L${lec.id} ${pct}%</span>`;
+                detailHtml += `<div class="word-item" style="padding:10px 0;">
+                    <div class="word-info"><h4>第${lec.id}讲 · ${lec.title}</h4><p>${lc}/${ws.length}个词组</p></div>
+                    <div style="font-size:14px;font-weight:600;color:${done ? '#07c160' : '#999'}">${pct}%</div>
+                </div>`;
+            });
+
+            // 徽章
+            let badgesHtml = '';
+            achievementList.forEach(a => {
+                if (userData.achievements.includes(a.id)) badgesHtml += `<div class="report-badge">${a.icon}</div>`;
+            });
+            teacherBadges.forEach(b => {
+                if (userData.teacherBadges.includes(b.id)) badgesHtml += `<div class="report-badge">${b.icon}</div>`;
+            });
+
+            document.getElementById('reportCard').innerHTML = `
+                <div class="report-name">${name}</div>
+                <div class="report-date">${dateStr}</div>
+                <div class="report-level">${lv.name} · Lv.${lv.lv}</div>
+                <div class="report-stats">
+                    <div class="report-stat"><div class="report-stat-val">${userData.points}</div><div class="report-stat-label">总积分</div></div>
+                    <div class="report-stat"><div class="report-stat-val">${totalLearned}</div><div class="report-stat-label">已学单词</div></div>
+                    <div class="report-stat"><div class="report-stat-val">${userData.streak}</div><div class="report-stat-label">连续天数</div></div>
+                </div>
+                <div class="report-lectures">${lecTags || '<span style="opacity:0.7;font-size:12px;">暂无学习记录</span>'}</div>
+                <div class="report-badges">${badgesHtml || '<span style="opacity:0.7;font-size:12px;">暂无徽章</span>'}</div>
+                <div class="report-footer">背单词学习报告 · ${dateStr}</div>`;
+
+            document.getElementById('reportDetail').innerHTML = detailHtml || '<div style="text-align:center;color:#999;padding:15px;">暂无数据</div>';
+        }
+
+        function copyReport() {
+            const name = userData.name || '未设置';
+            const lv = getLevel();
+            let totalLearned = 0;
+            Object.values(allWords).forEach(ws => { totalLearned += ws.filter(w => w.learned).length; });
+
+            let lecProgress = '';
+            lectures.forEach(lec => {
+                const ws = allWords[lec.id] || [];
+                if (ws.length === 0) return;
+                const lc = ws.filter(w => w.learned).length;
+                lecProgress += `  L${lec.id} ${lec.title}: ${lc}/${ws.length}\n`;
+            });
+
+            const text = `📚 背单词学习报告\n` +
+                `👤 ${name} | ${lv.name} Lv.${lv.lv}\n` +
+                `🏅 积分: ${userData.points} | 已学: ${totalLearned}个 | 连续: ${userData.streak}天\n` +
+                (lecProgress ? `📖 各讲进度:\n${lecProgress}` : '') +
+                `📅 ${new Date().toLocaleDateString()}`;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => showToast('已复制，可粘贴分享'));
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = text; document.body.appendChild(ta);
+                ta.select(); document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('已复制，可粘贴分享');
+            }
+        }
+
+        // ==================== 排行榜 ====================
+        function loadRankData() {
+            const saved = localStorage.getItem('bdc_rankData_v3');
+            if (saved) rankData = JSON.parse(saved);
+        }
+
+        function saveRankData() {
+            localStorage.setItem('bdc_rankData_v3', JSON.stringify(rankData));
+        }
+
+        function syncToRank() {
+            if (!userData.name) { showToast('请先在课程页设置姓名'); return; }
+            let totalLearned = 0;
+            Object.values(allWords).forEach(ws => { totalLearned += ws.filter(w => w.learned).length; });
+
+            const myData = {
+                name: userData.name,
+                points: userData.points,
+                words: totalLearned,
+                streak: userData.streak,
+                level: getLevel().lv,
+                time: Date.now()
+            };
+
+            const idx = rankData.findIndex(r => r.name === userData.name);
+            if (idx >= 0) rankData[idx] = myData;
+            else rankData.push(myData);
+
+            saveRankData();
+            renderRankList();
+            showToast('成绩已同步！');
+        }
+
+        function switchRankTab(tab, el) {
+            currentRankTab = tab;
+            document.querySelectorAll('.rank-tab').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            renderRankList();
+        }
+
+        function renderRankList() {
+            if (rankData.length === 0) {
+                document.getElementById('rankList').innerHTML = '<div style="text-align:center;color:#999;font-size:13px;padding:20px;">暂无排名数据</div>';
+                return;
+            }
+            const sorted = [...rankData].sort((a, b) => b[currentRankTab] - a[currentRankTab]);
+            const labels = {points: '积分', words: '单词', streak: '天'};
+            document.getElementById('rankList').innerHTML = sorted.map((r, i) => {
+                const posClass = i === 0 ? 'gold' : (i === 1 ? 'silver' : (i === 2 ? 'bronze' : 'normal'));
+                const isMe = r.name === userData.name;
+                return `<div class="rank-item ${isMe ? 'rank-me' : ''}">
+                    <div class="rank-pos ${posClass}">${i + 1}</div>
+                    <div class="rank-info">
+                        <div class="rank-name">${r.name}${isMe ? ' (我)' : ''}</div>
+                        <div class="rank-detail">Lv.${r.level}</div>
+                    </div>
+                    <div class="rank-score">${r[currentRankTab]} ${labels[currentRankTab]}</div>
+                </div>`;
+            }).join('');
+        }
+
         // ==================== 统计页 ====================
         function renderAchievements() {
             document.getElementById('achievements').innerHTML = achievementList.map(a =>
-                `<div class="achievement ${userData.achievements.includes(a.id) ? 'unlocked' : ''}" title="${a.name}">${a.icon}</div>`
+                `<div class="achievement ${userData.achievements.includes(a.id) ? 'unlocked' : ''}">
+                    ${a.icon}<span class="ach-name">${a.name}</span>
+                </div>`
             ).join('');
         }
 
@@ -970,17 +1343,9 @@
             lectures.forEach(lec => {
                 const ws = allWords[lec.id] || [];
                 if (ws.length === 0) return;
-                html += `<div style="padding:12px 14px 6px;font-size:14px;font-weight:600;color:#07c160;background:#f8f8f8;">第${lec.id}讲 · ${lec.title}</div>`;
+                html += `<div style="padding:10px 12px 4px;font-size:13px;font-weight:600;color:#07c160;background:#f8f8f8;">第${lec.id}讲 · ${lec.title}</div>`;
                 ws.forEach(w => {
-                    html += `
-                        <div class="word-item">
-                            <div class="word-info">
-                                <h4>${w.word}</h4>
-                                <p>${w.meaning}</p>
-                            </div>
-                            <div class="word-status ${w.learned ? 'learned' : 'new'}">${w.learned ? '✓' : ''}</div>
-                        </div>
-                    `;
+                    html += `<div class="word-item"><div class="word-info"><h4>${w.word}</h4><p>${w.meaning}</p></div><div class="word-status ${w.learned ? 'learned' : 'new'}">${w.learned ? '✓' : ''}</div></div>`;
                 });
             });
             if (!html) html = '<div style="padding:20px;text-align:center;color:#999;">暂无词汇数据</div>';
@@ -992,33 +1357,28 @@
             if (!userData.achievements.includes(id)) {
                 userData.achievements.push(id);
                 const ach = achievementList.find(a => a.id === id);
-                addPoints(50, '解锁成就: ' + (ach ? ach.name : ''));
+                addPoints(50, '解锁: ' + (ach ? ach.name : ''));
                 renderAchievements();
             }
         }
 
         function addPoints(pts, reason) {
             userData.points += pts;
-            saveUserData();
-            updateStats();
+            saveUserData(); updateStats();
             if (reason) showToast(reason + ' +' + pts);
         }
 
         // ==================== 重置 ====================
         function resetProgress() {
-            if (!confirm('确定要重置所有学习进度吗？词汇数据不会删除。')) return;
-            Object.keys(allWords).forEach(key => {
-                allWords[key].forEach(w => {
-                    w.learned = false;
-                    w.level = 0;
-                    w.nextReview = null;
-                });
+            if (!confirm('确定要重置所有学习进度吗？')) return;
+            Object.keys(allWords).forEach(k => {
+                allWords[k].forEach(w => { w.learned = false; w.level = 0; w.nextReview = null; });
             });
-            userData = { points: 0, streak: 0, lastStudyDate: null, achievements: [] };
-            saveAll();
-            updateStats();
-            renderLectureList();
-            renderAchievements();
+            userData.points = 0; userData.streak = 0;
+            userData.lastStudyDate = null; userData.achievements = [];
+            userData.teacherBadges = []; userData.redeemedCodes = [];
+            userData.rewardHistory = [];
+            saveAll(); updateStats(); renderLectureList(); renderAchievements();
             showToast('已重置');
         }
 
@@ -1030,7 +1390,6 @@
             setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
-        // ==================== 启动 ====================
         init();
     </script>
 </body>
