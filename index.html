@@ -998,7 +998,7 @@
         function renderNameBar() {
             const bar = document.getElementById('nameBar');
             if (userData.name) {
-                bar.innerHTML = `<div class="name-display">同学：<span>${userData.name}</span>${userData.className ? '<span class="class-tag">' + userData.className + '</span>' : ''}</div>
+                bar.innerHTML = `<div class="name-display">同学：<span>${userData.name}</span>${userData.className ? '<span class="class-tag" onclick="changeClass()" style="cursor:pointer;">' + userData.className + ' ✎</span>' : ''}</div>
                     <button onclick="changeName()" style="padding:6px 12px;background:linear-gradient(180deg,#fafafa,#f0f0f0);color:#666;border:none;border-radius:6px;font-size:12px;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,0.06);">修改</button>`;
             } else {
                 bar.innerHTML = `<span style="font-size:13px;color:#999;white-space:nowrap;">设置姓名：</span>
