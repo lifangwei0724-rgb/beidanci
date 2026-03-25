@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>背单词 - 微信版</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        .header {
+            background: linear-gradient(135deg, #07c160 0%, #05a350 100%);
+            padding: 40px 20px 30px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 24px; font-weight: bold; }
+        .stat-label { font-size: 12px; opacity: 0.9; }
+
+        .card {
+            background: white;
+            margin: 15px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .word-card {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .word-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .word-meaning {
+            font-size: 22px;
+            color: #07c160;
+            margin-bottom: 20px;
+            min-height: 30px;
+        }
+        .word-meaning.hidden {
+            color: #ddd;
+            background: #f5f5f5;
+            padding: 8px 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #07c160;
+            color: white;
+        }
+        .btn-secondary {
+            background: #f2f2f2;
+            color: #666;
+        }
+        .btn-danger {
+            background: #fa5151;
+            color: white;
+        }
+
+        .mode-tabs {
+            display: flex;
+            background: #f2f2f2;
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 20px;
+        }
+        .mode-tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+        .mode-tab.active {
+            background: white;
+            color: #07c160;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #07c160;
+        }
+
+        .word-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .word-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .word-item:last-child { border-bottom: none; }
+        .word-info h4 { font-size: 16px; color: #333; margin-bottom: 4px; }
+        .word-info p { font-size: 14px; color: #999; }
+        .word-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .word-status.learned { background: #07c160; color: white; }
+        .word-status.new { background: #f0f0f0; color: #999; }
+
+        .test-option {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            text-align: left;
+        }
+        .test-option.correct { border-color: #07c160; background: #e8f8f0; }
+        .test-option.wrong { border-color: #fa5151; background: #ffe8e8; }
+
+        .result-score {
+            font-size: 64px;
+            font-weight: bold;
+            color: #07c160;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            border-top: 1px solid #e5e5e5;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            border: none;
+            background: white;
+            color: #999;
+            font-size: 12px;
+        }
+        .nav-item.active { color: #07c160; }
+        .nav-icon { font-size: 24px; margin-bottom: 2px; }
+
+        .hidden { display: none !important; }
+
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+        }
+        .toast.show { display: block; }
+
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .achievement {
+            aspect-ratio: 1;
+            background: #f5f5f5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            opacity: 0.3;
+        }
+        .achievement.unlocked {
+            opacity: 1;
+            background: linear-gradient(135deg, #07c160 0%, #05a350 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 背单词</h1>
+        <p>Camping Adventure 词汇学习</p>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="points">0</div>
+                <div class="stat-label">积分</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">连击</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="learned">0</div>
+                <div class="stat-label">已学</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-learn">
+        <div class="card">
+            <div class="mode-tabs">
+                <button class="mode-tab active" onclick="setMode('new')">新单词</button>
+                <button class="mode-tab" onclick="setMode('review')">复习</button>
+            </div>
+            <div class="word-card">
+                <div class="word-text" id="wordText">Welcome</div>
+                <div class="word-meaning hidden" id="wordMeaning">点击显示释义</div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="showBtn" onclick="showMeaning()">显示释义</button>
+                <button class="btn btn-danger hidden" id="unknowBtn" onclick="markUnknown()">不认识</button>
+                <button class="btn btn-primary hidden" id="knowBtn" onclick="markKnown()">认识</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-test" class="hidden">
+        <div class="card">
+            <div id="test-start">
+                <div class="section-title">选择测试模式</div>
+                <button class="btn btn-primary" style="width:100%;margin-bottom:10px;" onclick="startTest('choice')">看词选义</button>
+                <button class="btn btn-primary" style="width:100%;margin-bottom:10px;" onclick="startTest('chinese')">看义选词</button>
+                <button class="btn btn-primary" style="width:100%;" onclick="startTest('spell')">拼写测试</button>
+            </div>
+            <div id="test-content" class="hidden"></div>
+        </div>
+    </div>
+
+    <div id="page-stats" class="hidden">
+        <div class="card">
+            <div class="section-title">成就徽章</div>
+            <div class="achievements" id="achievements"></div>
+        </div>
+        <div class="card">
+            <div class="section-title">单词列表</div>
+            <div class="word-list" id="wordList"></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="showPage('learn')">
+            <span class="nav-icon">📖</span>
+            <span>学习</span>
+        </button>
+        <button class="nav-item" onclick="showPage('test')">
+            <span class="nav-icon">📝</span>
+            <span>测试</span>
+        </button>
+        <button class="nav-item" onclick="showPage('stats')">
+            <span class="nav-icon">📊</span>
+            <span>统计</span>
+        </button>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // 内嵌词汇数据，无需外部文件
+        const defaultWords = [
+            {word: "go camping", meaning: "去露营"},
+            {word: "put it up", meaning: "把……搭起来"},
+            {word: "get some water", meaning: "取水"},
+            {word: "milk the cows", meaning: "挤奶牛"},
+            {word: "come and watch", meaning: "过来看"},
+            {word: "go to bed", meaning: "去睡觉"},
+            {word: "get up", meaning: "起床"},
+            {word: "blow the tent down", meaning: "把帐篷吹倒"},
+            {word: "get in the car", meaning: "进入车里"},
+            {word: "get worse", meaning: "变得更糟"},
+            {word: "get past", meaning: "路过"},
+            {word: "go back to the house", meaning: "回到房子里"},
+            {word: "call for help", meaning: "寻求帮助"},
+            {word: "make a big cross", meaning: "做一个十字"},
+            {word: "run to", meaning: "跑向"},
+            {word: "come to the door", meaning: "来到门口"},
+            {word: "like camping", meaning: "喜欢露营"},
+            {word: "at last", meaning: "最后"},
+            {word: "make out of", meaning: "由...做成"},
+            {word: "buy sb. sth.", meaning: "给某人买某物"},
+            {word: "buy sth. for sb.", meaning: "给某人买某物"}
+        ];
+
+        let words = [];
+        let currentMode = 'new';
+        let currentIndex = 0;
+        let currentTest = null;
+        let showingMeaning = false;
+
+        let userData = {
+            points: 0,
+            streak: 0,
+            lastStudyDate: null,
+            achievements: []
+        };
+
+        const achievements = [
+            {id: 'first', icon: '🌱'}, {id: 'ten', icon: '📚'},
+            {id: 'master', icon: '⭐'}, {id: 'streak3', icon: '🔥'},
+            {id: 'streak7', icon: '🗓️'}, {id: 'perfect', icon: '💯'},
+            {id: 'review', icon: '🔄'}, {id: 'quick', icon: '⚡'}
+        ];
+
+        function init() {
+            loadData();
+            checkStreak();
+            updateStats();
+            initLearn();
+            renderAchievements();
+            renderWordList();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('vocabularyData');
+            if (saved) {
+                words = JSON.parse(saved);
+            } else {
+                words = defaultWords.map((w, i) => ({
+                    id: Date.now() + i, ...w,
+                    learned: false, level: 0, nextReview: null
+                }));
+                saveData();
+            }
+            const savedUser = localStorage.getItem('userData');
+            if (savedUser) userData = JSON.parse(savedUser);
+        }
+
+        function saveData() {
+            localStorage.setItem('vocabularyData', JSON.stringify(words));
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+
+        function checkStreak() {
+            const today = new Date().toDateString();
+            if (userData.lastStudyDate) {
+                const last = new Date(userData.lastStudyDate);
+                const diff = Math.floor((new Date() - last) / (1000 * 60 * 60 * 24));
+                if (diff > 1) userData.streak = 0;
+            }
+            saveData();
+        }
+
+        function updateStats() {
+            document.getElementById('points').textContent = userData.points;
+            document.getElementById('streak').textContent = userData.streak;
+            document.getElementById('learned').textContent = words.filter(w => w.learned).length;
+        }
+
+        function showPage(page) {
+            document.querySelectorAll('[id^="page-"]').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('page-' + page).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+            if (page === 'stats') { renderAchievements(); renderWordList(); }
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            currentIndex = 0;
+            initLearn();
+        }
+
+        function initLearn() {
+            showingMeaning = false;
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+
+            if (list.length === 0) {
+                document.getElementById('wordText').textContent = currentMode === 'new' ? '✅ 完成' : '暂无复习';
+                document.getElementById('wordMeaning').textContent = currentMode === 'new' ? '所有单词已学习' : '今天没有复习任务';
+                document.getElementById('wordMeaning').classList.remove('hidden');
+                document.getElementById('showBtn').classList.add('hidden');
+                document.getElementById('knowBtn').classList.add('hidden');
+                document.getElementById('unknowBtn').classList.add('hidden');
+                return;
+            }
+
+            const word = list[currentIndex % list.length];
+            document.getElementById('wordText').textContent = word.word;
+            document.getElementById('wordMeaning').textContent = '点击显示释义';
+            document.getElementById('wordMeaning').classList.add('hidden');
+            document.getElementById('showBtn').classList.remove('hidden');
+            document.getElementById('knowBtn').classList.add('hidden');
+            document.getElementById('unknowBtn').classList.add('hidden');
+        }
+
+        function showMeaning() {
+            showingMeaning = true;
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+            if (list.length === 0) return;
+            const word = list[currentIndex % list.length];
+            document.getElementById('wordMeaning').textContent = word.meaning;
+            document.getElementById('wordMeaning').classList.remove('hidden');
+            document.getElementById('showBtn').classList.add('hidden');
+            document.getElementById('knowBtn').classList.remove('hidden');
+            document.getElementById('unknowBtn').classList.remove('hidden');
+        }
+
+        function markKnown() {
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+            if (list.length === 0) return;
+            const word = list[currentIndex % list.length];
+            const today = new Date().toDateString();
+
+            if (currentMode === 'new') {
+                word.learned = true;
+                word.level = 1;
+                word.nextReview = Date.now() + 5 * 60 * 1000;
+                addPoints(10, '学会新单词');
+                if (userData.lastStudyDate !== today) {
+                    userData.streak++;
+                    userData.lastStudyDate = today;
+                    showToast('🔥 ' + userData.streak + '天连击！');
+                }
+                const learned = words.filter(w => w.learned).length;
+                if (learned === 1) unlockAchievement('first');
+                if (learned === 10) unlockAchievement('ten');
+            } else {
+                word.level = Math.min(word.level + 1, 7);
+                word.nextReview = Date.now() + [5, 30, 720, 1440, 2880, 5760, 10080, 21600][word.level] * 60 * 1000;
+                addPoints(5, '复习成功');
+            }
+            saveData();
+            updateStats();
+            currentIndex++;
+            initLearn();
+        }
+
+        function markUnknown() {
+            const list = currentMode === 'new' ? words.filter(w => !w.learned) : words.filter(w => w.nextReview && w.nextReview <= Date.now());
+            if (list.length === 0) return;
+            const word = list[currentIndex % list.length];
+            word.level = Math.max(word.level - 1, 0);
+            word.nextReview = Date.now() + 5 * 60 * 1000;
+            saveData();
+            showToast('会再复习的');
+            currentIndex++;
+            initLearn();
+        }
+
+        function startTest(type) {
+            const learned = words.filter(w => w.learned);
+            if (learned.length < (type === 'choice' ? 4 : 1)) {
+                showToast('先学习一些单词吧！');
+                return;
+            }
+            currentTest = {
+                type: type, index: 0,
+                words: learned.sort(() => Math.random() - 0.5).slice(0, Math.min(10, learned.length)),
+                correct: 0, wrong: 0
+            };
+            renderTest();
+        }
+
+        function renderTest() {
+            const test = currentTest;
+            if (test.index >= test.words.length) {
+                const score = Math.round(test.correct / test.words.length * 100);
+                if (score === 100) unlockAchievement('perfect');
+                document.getElementById('test-content').innerHTML = `
+                    <div class="result-score">${score}</div>
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <span style="color:#07c160;">✓ ${test.correct}</span> /
+                        <span style="color:#fa5151;">✗ ${test.wrong}</span>
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;" onclick="resetTest()">再测一次</button>
+                `;
+                addPoints(Math.floor(score / 10), '测试完成');
+                return;
+            }
+            const word = test.words[test.index];
+            if (test.type === 'spell') {
+                document.getElementById('test-content').innerHTML = `
+                    <div style="font-size:24px;text-align:center;margin-bottom:20px;">${word.meaning}</div>
+                    <input type="text" id="spellInput" style="width:100%;padding:15px;font-size:18px;border:1px solid #ddd;border-radius:8px;margin-bottom:15px;" placeholder="输入单词">
+                    <button class="btn btn-primary" style="width:100%;" onclick="checkSpell('${word.word}')">提交</button>
+                `;
+                setTimeout(() => document.getElementById('spellInput').focus(), 100);
+            } else {
+                const options = getOptions(word, test.type);
+                document.getElementById('test-content').innerHTML = `
+                    <div style="font-size:24px;text-align:center;margin-bottom:20px;">${test.type === 'choice' ? word.word : word.meaning}</div>
+                    ${options.map(opt => `
+                        <div class="test-option" onclick="checkAnswer('${opt}', '${test.type === 'choice' ? word.meaning : word.word}', this)">${opt}</div>
+                    `).join('')}
+                `;
+            }
+        }
+
+        function getOptions(correctWord, type) {
+            const correct = type === 'choice' ? correctWord.meaning : correctWord.word;
+            const pool = words.filter(w => w.id !== correctWord.id);
+            const options = [correct];
+            while (options.length < 4 && pool.length > 0) {
+                const idx = Math.floor(Math.random() * pool.length);
+                const val = type === 'choice' ? pool[idx].meaning : pool[idx].word;
+                if (!options.includes(val)) options.push(val);
+                pool.splice(idx, 1);
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function checkSpell(correct) {
+            const input = document.getElementById('spellInput');
+            const value = input ? input.value.trim().toLowerCase() : '';
+            if (value === correct.toLowerCase()) {
+                currentTest.correct++;
+                addPoints(5, '拼写正确');
+            } else {
+                currentTest.wrong++;
+                showToast('正确: ' + correct);
+            }
+            currentTest.index++;
+            renderTest();
+        }
+
+        function checkAnswer(selected, correct, el) {
+            document.querySelectorAll('.test-option').forEach(b => {
+                b.style.pointerEvents = 'none';
+                if (b.textContent === correct) b.classList.add('correct');
+            });
+            if (selected === correct) {
+                currentTest.correct++;
+                el.classList.add('correct');
+                addPoints(5, '正确');
+            } else {
+                currentTest.wrong++;
+                el.classList.add('wrong');
+            }
+            setTimeout(() => { currentTest.index++; renderTest(); }, 600);
+        }
+
+        function resetTest() {
+            document.getElementById('test-start').classList.remove('hidden');
+            document.getElementById('test-content').classList.add('hidden');
+        }
+
+        function renderAchievements() {
+            document.getElementById('achievements').innerHTML = achievements.map(a =>
+                `<div class="achievement ${userData.achievements.includes(a.id) ? 'unlocked' : ''}">${a.icon}</div>`
+            ).join('');
+        }
+
+        function renderWordList() {
+            document.getElementById('wordList').innerHTML = words.map(w => `
+                <div class="word-item">
+                    <div class="word-info">
+                        <h4>${w.word}</h4>
+                        <p>${w.meaning}</p>
+                    </div>
+                    <div class="word-status ${w.learned ? 'learned' : 'new'}">${w.learned ? '✓' : ''}</div>
+                </div>
+            `).join('');
+        }
+
+        function unlockAchievement(id) {
+            if (!userData.achievements.includes(id)) {
+                userData.achievements.push(id);
+                addPoints(50, '解锁成就');
+                renderAchievements();
+            }
+        }
+
+        function addPoints(points, reason) {
+            userData.points += points;
+            saveData();
+            updateStats();
+            if (reason) showToast(reason + ' +' + points);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
