@@ -379,8 +379,6 @@
             transition: transform 0.1s;
         }
         .reward-input-group button:active { transform: translateY(2px); box-shadow: 0 1px 3px rgba(255,193,7,0.3); }
-            white-space: nowrap;
-        }
         .reward-history {
             margin-top: 12px; max-height: 150px; overflow-y: auto;
         }
@@ -577,6 +575,51 @@
             transition: transform 0.1s;
         }
         .modal-btn:active { transform: translateY(2px); }
+
+        /* 班级选择 */
+        .class-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(145deg, #07c160 0%, #05a350 50%, #038a40 100%);
+            z-index: 2000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 30px 20px;
+        }
+        .class-overlay h2 {
+            color: white; font-size: 24px; margin-bottom: 6px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        .class-overlay p {
+            color: rgba(255,255,255,0.85); font-size: 14px; margin-bottom: 24px;
+        }
+        .class-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 10px; width: 100%; max-width: 340px;
+        }
+        .class-btn {
+            padding: 16px 10px;
+            background: rgba(255,255,255,0.18);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 14px;
+            color: white;
+            font-size: 15px; font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.15);
+            transition: transform 0.15s, background 0.15s;
+            backdrop-filter: blur(5px);
+        }
+        .class-btn:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.3);
+        }
+        .class-tag {
+            display: inline-block;
+            background: linear-gradient(145deg, #1ad974, #07c160);
+            padding: 3px 10px; border-radius: 10px;
+            font-size: 11px; color: white; font-weight: 500;
+            box-shadow: 0 2px 4px rgba(7,193,96,0.3);
+            margin-left: 6px;
+        }
     </style>
 </head>
 <body>
@@ -696,7 +739,11 @@
         <div class="card">
             <div class="section-title">班级排行榜</div>
             <p style="font-size:12px;color:#999;margin-bottom:10px;">点击"同步成绩"将你的成绩加入排行榜</p>
-            <button class="btn btn-primary btn-full" onclick="syncToRank()" style="margin-bottom:12px;">同步我的成绩</button>
+            <button class="btn btn-primary btn-full" onclick="syncToRank()" style="margin-bottom:8px;">同步我的成绩</button>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <button class="btn btn-full" id="rankFilterMyBtn" onclick="toggleRankFilter(false)" style="flex:1;margin:0;background:linear-gradient(180deg,#1ad974,#07c160);color:white;box-shadow:0 3px 6px rgba(7,193,96,0.3);font-size:13px;padding:10px;">本班排行</button>
+                <button class="btn btn-full" id="rankFilterAllBtn" onclick="toggleRankFilter(true)" style="flex:1;margin:0;background:linear-gradient(180deg,#fafafa,#f0f0f0);color:#666;box-shadow:0 2px 4px rgba(0,0,0,0.06);font-size:13px;padding:10px;">全部班级</button>
+            </div>
             <div class="rank-tabs">
                 <button class="rank-tab active" onclick="switchRankTab('points', this)">积分榜</button>
                 <button class="rank-tab" onclick="switchRankTab('words', this)">单词榜</button>
@@ -747,7 +794,20 @@
     <div id="toast" class="toast"></div>
     <div id="modalContainer"></div>
 
+    <!-- 班级选择弹窗 -->
+    <div class="class-overlay hidden" id="classOverlay">
+        <h2>选择你的班级</h2>
+        <p>首次使用请选择所在班级</p>
+        <div class="class-grid" id="classGrid"></div>
+    </div>
+
     <script>
+        // ==================== 班级配置 ====================
+        const classes = [
+            '五年级', '六年级（基础）', '六年级（提高）', '七年级',
+            '八年级', '高一', 'Angel', 'Angela'
+        ];
+
         // ==================== 18讲词汇数据 ====================
         const lectures = [
             {
@@ -830,9 +890,11 @@
         let currentIndex = 0;
         let currentTest = null;
         let currentRankTab = 'points';
+        let rankFilterAll = false;
 
         let userData = {
             name: '',
+            className: '',
             points: 0,
             streak: 0,
             lastStudyDate: null,
@@ -864,6 +926,26 @@
             renderLectureList();
             renderAchievements();
             loadRankData();
+            // 首次使用：选择班级
+            if (!userData.className) {
+                showClassSelection();
+            }
+        }
+
+        function showClassSelection() {
+            const overlay = document.getElementById('classOverlay');
+            overlay.classList.remove('hidden');
+            document.getElementById('classGrid').innerHTML = classes.map(c =>
+                `<div class="class-btn" onclick="selectClass('${c}')">${c}</div>`
+            ).join('');
+        }
+
+        function selectClass(cls) {
+            userData.className = cls;
+            saveUserData();
+            document.getElementById('classOverlay').classList.add('hidden');
+            renderNameBar();
+            showToast('已加入: ' + cls);
         }
 
         function loadData() {
@@ -902,6 +984,7 @@
                     if (!userData.redeemedCodes) userData.redeemedCodes = [];
                     if (!userData.rewardHistory) userData.rewardHistory = [];
                     if (!userData.name) userData.name = '';
+                    if (!userData.className) userData.className = '';
                 }
                 saveUserData();
             }
@@ -915,8 +998,8 @@
         function renderNameBar() {
             const bar = document.getElementById('nameBar');
             if (userData.name) {
-                bar.innerHTML = `<div class="name-display">同学：<span>${userData.name}</span></div>
-                    <button onclick="changeName()" style="padding:6px 12px;background:#f2f2f2;color:#666;border:none;border-radius:6px;font-size:12px;cursor:pointer;">修改</button>`;
+                bar.innerHTML = `<div class="name-display">同学：<span>${userData.name}</span>${userData.className ? '<span class="class-tag">' + userData.className + '</span>' : ''}</div>
+                    <button onclick="changeName()" style="padding:6px 12px;background:linear-gradient(180deg,#fafafa,#f0f0f0);color:#666;border:none;border-radius:6px;font-size:12px;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,0.06);">修改</button>`;
             } else {
                 bar.innerHTML = `<span style="font-size:13px;color:#999;white-space:nowrap;">设置姓名：</span>
                     <input type="text" id="nameInput" placeholder="输入你的姓名" maxlength="10">
@@ -941,6 +1024,10 @@
                 saveUserData();
                 renderNameBar();
             }
+        }
+
+        function changeClass() {
+            showClassSelection();
         }
 
         // ==================== 连击 ====================
@@ -1345,7 +1432,7 @@
 
             document.getElementById('reportCard').innerHTML = `
                 <div class="report-name">${name}</div>
-                <div class="report-date">${dateStr}</div>
+                <div class="report-date">${userData.className ? userData.className + ' · ' : ''}${dateStr}</div>
                 <div class="report-level">${lv.name} · Lv.${lv.lv}</div>
                 <div class="report-stats">
                     <div class="report-stat"><div class="report-stat-val">${userData.points}</div><div class="report-stat-label">总积分</div></div>
@@ -1373,9 +1460,9 @@
                 lecProgress += `  L${lec.id} ${lec.title}: ${lc}/${ws.length}\n`;
             });
 
-            const text = `📚 背单词学习报告\n` +
-                `👤 ${name} | ${lv.name} Lv.${lv.lv}\n` +
-                `🏅 积分: ${userData.points} | 已学: ${totalLearned}个 | 连续: ${userData.streak}天\n` +
+            const text = `背单词学习报告\n` +
+                `${name}${userData.className ? ' | ' + userData.className : ''} | ${lv.name} Lv.${lv.lv}\n` +
+                `积分: ${userData.points} | 已学: ${totalLearned}个 | 连续: ${userData.streak}天\n` +
                 (lecProgress ? `📖 各讲进度:\n${lecProgress}` : '') +
                 `📅 ${new Date().toLocaleDateString()}`;
 
@@ -1402,11 +1489,13 @@
 
         function syncToRank() {
             if (!userData.name) { showToast('请先在课程页设置姓名'); return; }
+            if (!userData.className) { showToast('请先选择班级'); showClassSelection(); return; }
             let totalLearned = 0;
             Object.values(allWords).forEach(ws => { totalLearned += ws.filter(w => w.learned).length; });
 
             const myData = {
                 name: userData.name,
+                className: userData.className,
                 points: userData.points,
                 words: totalLearned,
                 streak: userData.streak,
@@ -1414,7 +1503,7 @@
                 time: Date.now()
             };
 
-            const idx = rankData.findIndex(r => r.name === userData.name);
+            const idx = rankData.findIndex(r => r.name === userData.name && r.className === userData.className);
             if (idx >= 0) rankData[idx] = myData;
             else rankData.push(myData);
 
@@ -1430,21 +1519,50 @@
             renderRankList();
         }
 
+        function toggleRankFilter(all) {
+            rankFilterAll = all;
+            const myBtn = document.getElementById('rankFilterMyBtn');
+            const allBtn = document.getElementById('rankFilterAllBtn');
+            if (all) {
+                allBtn.style.background = 'linear-gradient(180deg,#1ad974,#07c160)';
+                allBtn.style.color = 'white';
+                allBtn.style.boxShadow = '0 3px 6px rgba(7,193,96,0.3)';
+                myBtn.style.background = 'linear-gradient(180deg,#fafafa,#f0f0f0)';
+                myBtn.style.color = '#666';
+                myBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.06)';
+            } else {
+                myBtn.style.background = 'linear-gradient(180deg,#1ad974,#07c160)';
+                myBtn.style.color = 'white';
+                myBtn.style.boxShadow = '0 3px 6px rgba(7,193,96,0.3)';
+                allBtn.style.background = 'linear-gradient(180deg,#fafafa,#f0f0f0)';
+                allBtn.style.color = '#666';
+                allBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.06)';
+            }
+            renderRankList();
+        }
+
         function renderRankList() {
             if (rankData.length === 0) {
                 document.getElementById('rankList').innerHTML = '<div style="text-align:center;color:#999;font-size:13px;padding:20px;">暂无排名数据</div>';
                 return;
             }
-            const sorted = [...rankData].sort((a, b) => b[currentRankTab] - a[currentRankTab]);
+            // 按当前班级筛选
+            const myClass = userData.className;
+            const filtered = rankFilterAll ? rankData : rankData.filter(r => r.className === myClass);
+            const sorted = [...filtered].sort((a, b) => b[currentRankTab] - a[currentRankTab]);
             const labels = {points: '积分', words: '单词', streak: '天'};
+            if (sorted.length === 0) {
+                document.getElementById('rankList').innerHTML = '<div style="text-align:center;color:#999;font-size:13px;padding:20px;">本班暂无排名，点击"同步成绩"加入</div>';
+                return;
+            }
             document.getElementById('rankList').innerHTML = sorted.map((r, i) => {
                 const posClass = i === 0 ? 'gold' : (i === 1 ? 'silver' : (i === 2 ? 'bronze' : 'normal'));
-                const isMe = r.name === userData.name;
+                const isMe = r.name === userData.name && r.className === userData.className;
                 return `<div class="rank-item ${isMe ? 'rank-me' : ''}">
                     <div class="rank-pos ${posClass}">${i + 1}</div>
                     <div class="rank-info">
                         <div class="rank-name">${r.name}${isMe ? ' (我)' : ''}</div>
-                        <div class="rank-detail">Lv.${r.level}</div>
+                        <div class="rank-detail">Lv.${r.level} · ${r.className || ''}</div>
                     </div>
                     <div class="rank-score">${r[currentRankTab]} ${labels[currentRankTab]}</div>
                 </div>`;
@@ -1500,6 +1618,7 @@
             userData.lastStudyDate = null; userData.achievements = [];
             userData.teacherBadges = []; userData.redeemedCodes = [];
             userData.rewardHistory = [];
+            // 保留姓名和班级
             saveAll(); updateStats(); renderLectureList(); renderAchievements();
             showToast('已重置');
         }
