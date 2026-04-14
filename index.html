@@ -1178,16 +1178,12 @@
         // ==================== 初始化 ====================
         function init() {
             loadData();
-            lectures = getLectures();
             checkStreak();
             updateStats();
             renderNameBar();
-            renderLectureList();
-            renderAchievements();
             loadRankData();
-            if (!userData.className) {
-                showClassSelection();
-            }
+            // 每次打开都显示班级选择
+            showClassSelection();
         }
 
         function showClassSelection() {
@@ -1207,6 +1203,7 @@
             document.getElementById('classOverlay').classList.add('hidden');
             renderNameBar();
             renderLectureList();
+            renderAchievements();
             showToast('已加入: ' + cls);
         }
 
