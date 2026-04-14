@@ -867,6 +867,90 @@
             {id:18,title:"第18讲",words:[]}
         ];
 
+        // 二年级班级专属词汇
+        const grade2Lectures = [
+            {
+                id: 1, title: "Camping Adventure",
+                words: [
+                    {word: "go camping", meaning: "去露营"},
+                    {word: "put it up", meaning: "把……搭起来"},
+                    {word: "get some water", meaning: "取水"},
+                    {word: "milk the cows", meaning: "挤奶牛"},
+                    {word: "come and watch", meaning: "过来看"},
+                    {word: "go to bed", meaning: "去睡觉"},
+                    {word: "get up", meaning: "起床"},
+                    {word: "blow the tent down", meaning: "把帐篷吹倒"},
+                    {word: "get in the car", meaning: "进入车里"},
+                    {word: "get worse", meaning: "变得更糟"},
+                    {word: "get past", meaning: "路过"},
+                    {word: "go back to the house", meaning: "回到房子里"},
+                    {word: "call for help", meaning: "寻求帮助"},
+                    {word: "make a big cross", meaning: "做一个十字"},
+                    {word: "run to", meaning: "跑向"},
+                    {word: "come to the door", meaning: "来到门口"},
+                    {word: "like camping", meaning: "喜欢露营"},
+                    {word: "at last", meaning: "最后"},
+                    {word: "make out of", meaning: "由...做成"},
+                    {word: "buy sb. sth.", meaning: "给某人买某物"},
+                    {word: "buy sth. for sb.", meaning: "给某人买某物"}
+                ]
+            },
+            {
+                id: 2, title: "Nature Diary",
+                words: [
+                    {word: "keep a diary", meaning: "写日记"},
+                    {word: "autumn", meaning: "秋天"},
+                    {word: "phone", meaning: "打电话"},
+                    {word: "all week", meaning: "一整周"},
+                    {word: "stay with sb.", meaning: "与某人待在一起"},
+                    {word: "reply", meaning: "回答 (v.)"},
+                    {word: "get the homework done", meaning: "完成功课"},
+                    {word: "have some fun", meaning: "玩得开心"},
+                    {word: "pick up", meaning: "接某人"},
+                    {word: "get time to do sth.", meaning: "有时间做某事"},
+                    {word: "write our nature diary", meaning: "写我们的自然日记"},
+                    {word: "sunbed", meaning: "日光浴床"},
+                    {word: "get to", meaning: "到达"},
+                    {word: "summer", meaning: "夏天"},
+                    {word: "how odd", meaning: "真奇怪呀"},
+                    {word: "shed", meaning: "小棚屋"},
+                    {word: "a nature labortatory", meaning: "自然实验室"},
+                    {word: "look inside", meaning: "向里面看"},
+                    {word: "collect", meaning: "收集"},
+                    {word: "rub", meaning: "摩擦"},
+                    {word: "a bark rubbing", meaning: "树皮摩擦拓印"},
+                    {word: "against", meaning: "靠着"},
+                    {word: "each", meaning: "每一个"},
+                    {word: "pot", meaning: "花盆"},
+                    {word: "type", meaning: "种类"},
+                    {word: "mix the seeds", meaning: "混合种子"},
+                    {word: "with melted fat", meaning: "在融化脂肪中"},
+                    {word: "hang", meaning: "悬挂"},
+                    {word: "a special place", meaning: "特别的地方"},
+                    {word: "a secret", meaning: "秘密"},
+                    {word: "marks", meaning: "印记"},
+                    {word: "tracks", meaning: "脚印 (n.)"},
+                    {word: "powder", meaning: "粉末"},
+                    {word: "mix", meaning: "混合"},
+                    {word: "pour A on to B", meaning: "将A倒在B上"},
+                    {word: "plaster", meaning: "石膏"},
+                    {word: "in the shape of...", meaning: "以...为形状"},
+                    {word: "look up in a book", meaning: "在书中查阅"},
+                    {word: "wrap up warm", meaning: "穿暖和"},
+                    {word: "shooting star", meaning: "流星"},
+                    {word: "lie on", meaning: "躺在"}
+                ]
+            },
+            {id:3,title:"第3讲",words:[]},{id:4,title:"第4讲",words:[]},
+            {id:5,title:"第5讲",words:[]},{id:6,title:"第6讲",words:[]},
+            {id:7,title:"第7讲",words:[]},{id:8,title:"第8讲",words:[]},
+            {id:9,title:"第9讲",words:[]},{id:10,title:"第10讲",words:[]},
+            {id:11,title:"第11讲",words:[]},{id:12,title:"第12讲",words:[]},
+            {id:13,title:"第13讲",words:[]},{id:14,title:"第14讲",words:[]},
+            {id:15,title:"第15讲",words:[]},{id:16,title:"第16讲",words:[]},
+            {id:17,title:"第17讲",words:[]},{id:18,title:"第18讲",words:[]}
+        ];
+
         // Jeffery班级专属词汇
         const jefferyLectures = [
             {
@@ -1015,6 +1099,7 @@
 
         // 根据班级获取对应课程数据
         function getLectures() {
+            if (userData.className === '二年级') return grade2Lectures;
             if (userData.className === 'Jeffery') return jefferyLectures;
             return defaultLectures;
         }
